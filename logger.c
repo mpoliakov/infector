@@ -134,12 +134,12 @@ kernel32:                                    // Obtain address of kernel32.dll
 	push    ebp                              // x86 calling convention
 	mov     ebp, esp
 	xor     eax, eax                         // eax = 0
-	mov		eax, fs:[0x30 + eax]             // eax = PEB (Process Environment Block) contains information about the process
-	mov		eax, [eax + 0x0c]                // eax = PEB->Ldr (contains information about the loaded modules for the process)
-	mov		eax, [eax + 0x14]                // eax = PEB->Ldr.List.InMemoryOrderModuleList (linked list for modules)
-	mov		eax, [eax]                       // eax = ntdll module (second module), first is program itself
-	mov		eax, [eax]                       // eax = kernel32 module (third module) [Flink]
-	mov		eax, [eax + 0x10]                // eax = Flink->DllBase (kernel32 base address)
+	mov     eax, fs:[0x30 + eax]             // eax = PEB (Process Environment Block) contains information about the process
+	mov     eax, [eax + 0x0c]                // eax = PEB->Ldr (contains information about the loaded modules for the process)
+	mov     eax, [eax + 0x14]                // eax = PEB->Ldr.List.InMemoryOrderModuleList (linked list for modules)
+	mov     eax, [eax]                       // eax = ntdll module (second module), first is program itself
+	mov     eax, [eax]                       // eax = kernel32 module (third module) [Flink]
+	mov     eax, [eax + 0x10]                // eax = Flink->DllBase (kernel32 base address)
 	mov     esp, ebp
 	pop     ebp
 	ret                                      // return eax
